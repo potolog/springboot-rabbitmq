@@ -1,0 +1,10 @@
+spring:
+  rabbitmq:
+#   host: localhost
+    host: 106.10.50.175
+    port: 5672
+    username: kakaopay
+    password: kakao1234
+    virtualhost: kakaopay
+    queue: qlist
+

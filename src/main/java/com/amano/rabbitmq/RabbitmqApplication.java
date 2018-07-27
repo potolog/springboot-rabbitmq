@@ -19,7 +19,7 @@ public class RabbitmqApplication {
 	}
 
     //  @Value("${myqueue}")
-    @Value("${spring.rabbitmq.queue}")
+    @Value("${spring.rabbitmq.queue-request}")
 	String queue;
 
 	/*
@@ -35,7 +35,21 @@ public class RabbitmqApplication {
 	@Bean
 	CommandLineRunner sender(Producer producer) {
 		return args -> {
-			producer.sendTo(queue, "Hello !!!");
+			String message = "{\n" +
+					"  \"app_id\": \"amano-kakaopay\",\n" +
+					"  \"app_key\": \"39e21cd330993e7361ee7afd9cf57345\",\n" +
+                    "  \"billerNoticeKey\": \"1_00cdd25739b73a12af549a3b31764c5e\",\n" +
+					"  \"site\": \"한국주차장\",\n" +
+					"  \"username\": \"홍길동\",\n" +
+					"  \"phone_no\": \"010-1111-2222\",\n" +
+					"  \"title\": \"정기권 결제\",\n" +
+					"  \"description\": \"2018년 5월 정기권 결제\",\n" +
+					"  \"amount\": \"150000\",\n" +
+					"  \"expire_date\": \"2018-05-31\",\n" +
+					"  \"end_date\": \"2018-05-20\",\n" +
+					"  \"url\": \"http://naver.com\"\n" +
+					"}";
+			producer.sendTo(queue, message);
 		};
 	}
 

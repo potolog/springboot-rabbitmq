@@ -6,5 +6,7 @@ spring:
     username: kakaopay
     password: kakao1234
     virtualhost: kakaopay
-    queue: qlist
+    queue-request: request
+    queue-response-1: response
+    queue-response-2: response1
 

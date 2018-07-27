@@ -1,5 +1,6 @@
 package com.amano.rabbitmq;
 
+import org.springframework.amqp.core.Queue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -9,7 +10,6 @@ import org.springframework.context.annotation.Bean;
 
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.Queue;
 
 @SpringBootApplication
 public class RabbitmqApplication {
@@ -20,14 +20,12 @@ public class RabbitmqApplication {
 
     //  @Value("${myqueue}")
     @Value("${spring.rabbitmq.queue-request}")
-	String queue;
+	String queueName;
 
-	/*
 	@Bean
     Queue queue() {
-		return new Queue(queue, false);
+		return new Queue(queueName, false);
 	}
-	*/
 
 	@Autowired
 	Producer producer;
@@ -49,7 +47,7 @@ public class RabbitmqApplication {
 					"  \"end_date\": \"2018-05-20\",\n" +
 					"  \"url\": \"http://naver.com\"\n" +
 					"}";
-			producer.sendTo(queue, message);
+			producer.sendTo(queueName, message);
 		};
 	}
 

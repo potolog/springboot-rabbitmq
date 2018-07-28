@@ -21,8 +21,8 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import java.util.HashMap;
 import java.util.Map;
 
-@Configuration
-@EnableRabbit
+//@Configuration
+//@EnableRabbit
 public class RabbitMQConfiguration {
 
     @Autowired

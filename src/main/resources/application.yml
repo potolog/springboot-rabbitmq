@@ -6,7 +6,18 @@ spring:
     username: kakaopay
     password: kakao1234
     virtualhost: kakaopay
+    exchange: kakaopay
+    topic: kakaopay
+
+    queue-alarm: alarm
+
     queue-request: request
-    queue-response-1: response
-    queue-response-2: response1
+    queue-response: response
+    queue-response-1: response1
+    queue-response-2: response2
+
+schedule:
+  rabbitmq:
+    cron: false
+    timer: false
 

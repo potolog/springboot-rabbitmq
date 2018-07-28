@@ -1,5 +1,7 @@
 package com.amano.rabbitmq;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.Queue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -7,25 +9,54 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 
 @SpringBootApplication
+@EnableScheduling
 public class RabbitmqApplication {
+
+    @Autowired
+    AppConfig appConfig;
+
+	private static final Logger logger = LoggerFactory.getLogger(RabbitmqApplication.class);
 
 	public static void main(String[] args) {
 		SpringApplication.run(RabbitmqApplication.class, args);
 	}
 
-    //  @Value("${myqueue}")
-    @Value("${spring.rabbitmq.queue-request}")
-	String queueName;
+	/*
+	 * RabbitMQ 에서 사용할 queue 를 만든다.
+	 */
+    @Bean
+    Queue queue_request () {
+        return new Queue(appConfig.queue_request, true);
+    }
 
-	@Bean
-    Queue queue() {
-		return new Queue(queueName, false);
-	}
+    @Bean
+    Queue queue_response () {
+        return new Queue(appConfig.queue_response, true);
+    }
+
+    @Bean
+    Queue queue_response_1 () {
+        return new Queue(appConfig.queue_response_1, false);
+    }
+
+    @Bean
+    Queue queue_response_2 () {
+        return new Queue(appConfig.queue_response_2, false);
+    }
+
+    @Bean
+    Queue queue_alarm () {
+        return new Queue(appConfig.queue_alarm, true);
+    }
 
 	@Autowired
 	Producer producer;
@@ -47,7 +78,7 @@ public class RabbitmqApplication {
 					"  \"end_date\": \"2018-05-20\",\n" +
 					"  \"url\": \"http://naver.com\"\n" +
 					"}";
-			producer.sendTo(queueName, message);
+			producer.sendTo(appConfig.queue_request, message);
 		};
 	}
 

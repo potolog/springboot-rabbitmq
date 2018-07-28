@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
@@ -20,9 +21,9 @@ public class Producer {
     private RabbitTemplate rabbitTemplate;
 
 //  @Scheduled(cron = "0/3 * * * * *")
-    @Scheduled(cron = "* * * * * *")
-    public void onSend() {
-        logger.info("Sending message... Start");
+//  @Scheduled(cron = "*/5 * * * * *")
+    public void onCronSchedule() {
+        logger.info("producer.onCron : Sending message... Start");
 
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
@@ -36,8 +37,10 @@ public class Producer {
         logger.info("Sending message... End");
     }
 
+    // 이벤트 메시지 전송
     public void sendTo(String routingKey, String message) {
-        logger.info(String.format("send message...> %s", message));
+        logger.info(String.format("\n==> send message to [%s]\n%s", routingKey, message));
         this.rabbitTemplate.convertAndSend(routingKey, message);
     }
+
 }

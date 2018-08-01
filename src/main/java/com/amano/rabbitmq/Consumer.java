@@ -33,9 +33,14 @@ public class Consumer {
 //    public void reveicer_response_1(String message) {
 //        logger.info(String.format("\n==> receive message from [Response-1]\n%s", message));
 //    }
-//
-//    @RabbitListener(queues = "${spring.rabbitmq.queue-response-2}")
-//    public void reveicer_response_2(String message) {
+
+    @RabbitListener(queues = "${spring.rabbitmq.queue-response-2}")
+    public void reveicer_response_2(String message) {
+        logger.info(String.format("\n==> receive message from [Response-2]\n%s", message));
+    }
+
+//    @RabbitListener(queues = "${spring.rabbitmq.queue-response-3}")
+//    public void reveicer_response_3(String message) {
 //        logger.info(String.format("\n==> receive message from [Response-2]\n%s", message));
 //    }
 

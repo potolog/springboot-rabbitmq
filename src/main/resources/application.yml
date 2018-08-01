@@ -1,5 +1,9 @@
+
 spring:
+
+  # RabbitMQ 설정
   rabbitmq:
+    # RabbitMQ 접속 정보
 #   host: localhost
     host: 106.10.50.175
     port: 5672
@@ -9,14 +13,18 @@ spring:
     exchange: kakaopay
     topic: kakaopay
 
-    queue-alarm: alarm
+    # Queue 정보
 
+    queue-alarm: alarm
     queue-request: request
     queue-response: response
     queue-response-1: response1
     queue-response-2: response2
+    queue-response-3: response2
 
+# 스케쥴러 설정
 schedule:
+  # RabbitMQ 스케쥴 작동 상태
   rabbitmq:
     cron: false
     timer: false

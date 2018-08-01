@@ -62,4 +62,8 @@ public class AppConfig {
     @Value("${spring.rabbitmq.queue-response2}")
     String queue_response_2;
 
+    // RabbitMQ - response queue 3
+    @Value("${spring.rabbitmq.queue-response3}")
+    String queue_response_3;
+
 }
